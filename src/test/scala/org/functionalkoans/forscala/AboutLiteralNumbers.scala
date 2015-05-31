@@ -12,13 +12,13 @@ class AboutLiteralNumbers extends KoanSuite with ShouldMatchers {
     val f = -2
     val g = -31
     val h = -0x30F
-    a should be(__)
-    b should be(__)
-    c should be(__) //Hint: 30F = 783
-    e should be(__)
-    f should be(__)
-    g should be(__)
-    h should be(__) //Hint: 30F = 783
+    a should be(2)
+    b should be(31)
+    c should be(783) //Hint: 30F = 783
+    e should be(0)
+    f should be(-2)
+    g should be(-31)
+    h should be(-783) //Hint: 30F = 783
   }
 
   koan("""Long Literals are 64 bit, are specified by appending an L or l at the end;
@@ -31,13 +31,13 @@ class AboutLiteralNumbers extends KoanSuite with ShouldMatchers {
     val g = -31L
     val h = -0x30FL
 
-    a should be(__)
-    b should be(__)
-    c should be(__) //Hint: 30F = 783
-    e should be(__)
-    f should be(__)
-    g should be(__)
-    h should be(__) //Hint: 30F = 783
+    a should be(2)
+    b should be(31)
+    c should be(783) //Hint: 30F = 783
+    e should be(0)
+    f should be(-2)
+    g should be(-31)
+    h should be(-783) //Hint: 30F = 783
   }
 
   koan("""Float and Double Literals are IEEE 754 for specific,
@@ -46,24 +46,24 @@ class AboutLiteralNumbers extends KoanSuite with ShouldMatchers {
          |   Doubles can be coerced using a d or D suffix.
          |   Exponent are specified using e or E.""") {
 
-    val a = 3.0
-    val b = 3.00
+    val a: Float = 3.0f
+    val b: Double = 3.00
     val c = 2.73
     val d = 3f
     val e = 3.22d
-    val f = 93e-9
+    val f: Double = 93e-9
     val g = 93E-9
     val h = 0.0
     val i = 9.23E-9D
 
-    a should be(__)
-    b should be(__)
-    c should be(__)
-    d should be(__)
-    e should be(__)
-    f should be(__)
-    g should be(__)
-    h should be(__)
-    i should be(__)
+    a should be(3)
+    b should be(3)
+    c should be(2.73)
+    d should be(3)
+    e should be(3.22)
+    f should be(93e-9)
+    g should be(93E-9)
+    h should be(0)
+    i should be(9.23e-9d)
   }
 }
