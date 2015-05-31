@@ -31,6 +31,7 @@ class AboutApply extends KoanSuite {
     a.firstName should be ("Aleksander")
     val b = Employee("Jamie", "Pindar")
     a.lastName should be ("Neufied")
-    val c = Employee("", "")
+    val c = Employee("Instantiate", "via 'apply' method")
+//    val c = new Employee("Instantiate", "via 'apply' method") // does not compile
   }
 }
