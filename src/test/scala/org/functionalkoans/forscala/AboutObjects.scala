@@ -2,7 +2,7 @@ package org.functionalkoans.forscala
 
 import org.functionalkoans.forscala.support.KoanSuite
 
-class SecretAgent(val name: String) {
+class SecretAgent private(val name: String) {
   def shoot(n: Int) {
     SecretAgent.decrementBullets(n)
   }
@@ -11,6 +11,8 @@ class SecretAgent(val name: String) {
 object SecretAgent {
   //This is encapsulated!
   var bullets: Int = 3000
+
+  def apply(name: String) = new SecretAgent(name)
 
   private def decrementBullets(count: Int) {
     if (bullets - count <= 0) bullets = 0
@@ -40,10 +42,10 @@ class AboutObjects extends KoanSuite {
       def magyar = "Szia"
     }
 
-    Greeting.english should be(__)
-    Greeting.espanol should be(__)
-    Greeting.deutsch should be(__)
-    Greeting.magyar should be(__)
+    Greeting.english should be("Hi")
+    Greeting.espanol should be("Hola")
+    Greeting.deutsch should be("Hallo")
+    Greeting.magyar should be("Szia")
   }
 
   koan( """Here is proof an object is a singleton, and not a static method in a class""") {
@@ -60,11 +62,12 @@ class AboutObjects extends KoanSuite {
     val x = Greeting
     val y = x
 
-    x eq y should be(__) //Reminder, eq checks for reference
+    x eq y should be(true) //Reminder, eq checks for reference
+    x == y should be(true) //Reminder, == checks for reference
 
     val z = Greeting
 
-    x eq z should be(__)
+    x eq z should be(true)
   }
 
 
@@ -75,7 +78,15 @@ class AboutObjects extends KoanSuite {
     class Movie(val name: String, val year: Short)
 
     object Movie {
-      def academyAwardBestMoviesForYear(x: Short) = {
+
+      def apply(x: Short): Movie = {
+        val m: Movie = academyAwardBestMoviesForYear(x).getOrElse {
+          new Movie("None movie", 2030)
+        }
+        new Movie(m.name, m.year)
+      }
+
+      def academyAwardBestMoviesForYear(x: Short): Option[Movie] = {
         //These are match statement, more powerful than Java switch statements!
         x match {
           case 1930 => Some(new Movie("All Quiet On the Western Front", 1930))
@@ -86,7 +97,8 @@ class AboutObjects extends KoanSuite {
       }
     }
 
-    Movie.academyAwardBestMoviesForYear(1932).get.name should be(__)
+    Movie.academyAwardBestMoviesForYear(1932).get.name should be("Grand Hotel")
+    Movie(1932).name should be("Grand Hotel")
   }
 
 
@@ -95,11 +107,11 @@ class AboutObjects extends KoanSuite {
       | (See SecretAgent class and companion object above).""") {
 
 
-    val bond = new SecretAgent("James Bond")
-    val felix = new SecretAgent("Felix Leitner")
-    val jason = new SecretAgent("Jason Bourne")
-    val _99 = new SecretAgent("99")
-    val max = new SecretAgent("Max Smart")
+    val bond = SecretAgent("James Bond")
+    val felix = SecretAgent("Felix Leitner")
+    val jason = SecretAgent("Jason Bourne")
+    val _99 = SecretAgent("99")
+    val max = SecretAgent("Max Smart")
 
     bond.shoot(800)
     felix.shoot(200)
@@ -107,7 +119,7 @@ class AboutObjects extends KoanSuite {
     _99.shoot(150)
     max.shoot(200)
 
-    SecretAgent.bullets should be(__)
+    SecretAgent.bullets should be(1500)
   }
 
 
@@ -118,9 +130,11 @@ class AboutObjects extends KoanSuite {
     val bruce = new Person("Bruce Wayne", "Batman")
     val diana = new Person("Diana Prince", "Wonder Woman")
 
-    Person.showMeInnerSecret(clark) should be (__)
-    Person.showMeInnerSecret(peter) should be (__)
-    Person.showMeInnerSecret(bruce) should be (__)
-    Person.showMeInnerSecret(diana) should be (__)
+    // does not compile - inaccessible
+//    clark.superheroName should be ("Superman")
+    Person.showMeInnerSecret(clark) should be ("Superman")
+    Person.showMeInnerSecret(peter) should be ("Spiderman")
+    Person.showMeInnerSecret(bruce) should be ("Batman")
+    Person.showMeInnerSecret(diana) should be ("Wonder Woman")
   }
 }
