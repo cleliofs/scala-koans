@@ -16,7 +16,7 @@ class AboutPatternMatching extends KoanSuite {
       case _ => println(stuff); 0 //case _ will trigger if all other cases fail.
     }
 
-    myStuff should be(__)
+    myStuff should be(2)
 
   }
 
@@ -30,7 +30,7 @@ class AboutPatternMatching extends KoanSuite {
       case _ => println(stuff); 0
     }
 
-    myStuff should be(__, __, __)
+    myStuff should be(0, 0, 255)
 
   }
 
@@ -44,7 +44,7 @@ class AboutPatternMatching extends KoanSuite {
       case _ => "what?"
     }
 
-    goldilocks(("porridge", "Mama")) should be(__)
+    goldilocks(("porridge", "Mama")) should be("Mama eating porridge")
 
   }
 
@@ -57,8 +57,8 @@ class AboutPatternMatching extends KoanSuite {
       case _ => "what?"
     }
 
-    goldilocks(("porridge", "Papa")) should be(__)
-    goldilocks(("chair", "Mama")) should be(__)
+    goldilocks(("porridge", "Papa")) should be("eating")
+    goldilocks(("chair", "Mama")) should be("sitting")
 
   }
 
@@ -71,8 +71,8 @@ class AboutPatternMatching extends KoanSuite {
       case _ => "what?"
     }
 
-    goldilocks(("porridge", "Papa")) should be(__)
-    goldilocks(("chair", "Mama")) should be(__)
+    goldilocks(("porridge", "Papa")) should be("Papa said someone's been eating my porridge")
+    goldilocks(("chair", "Mama")) should be("Mama said someone's been sitting in my chair")
   }
 
 
@@ -88,8 +88,8 @@ class AboutPatternMatching extends KoanSuite {
       case _ => "what?"
     }
 
-    goldilocks("Eating Alert: bear=Papa, source=porridge") should be(__)
-    goldilocks("Sitting Alert: bear=Mama, source=chair") should be(__)
+    goldilocks("Eating Alert: bear=Papa, source=porridge") should be("Papa said someone's been eating my porridge")
+    goldilocks("Sitting Alert: bear=Mama, source=chair") should be("Mama said someone's been sitting on my chair")
   }
 
   koan( """A backquote can be used to refer to a stable variable in scope to create a case statement.
