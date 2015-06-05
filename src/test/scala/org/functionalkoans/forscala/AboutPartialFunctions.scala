@@ -26,8 +26,8 @@ class AboutPartialFunctions extends KoanSuite with ShouldMatchers {
 
     val whatToDo = doubleEvens orElse tripleOdds //Here we chain the partial functions together
 
-    whatToDo(3) should be(__)
-    whatToDo(4) should be(__)
+    whatToDo(3) should be(9)
+    whatToDo(4) should be(8)
   }
 
   koan( """Case statements are a quick way to create partial functions. When you create a case
@@ -35,15 +35,15 @@ class AboutPartialFunctions extends KoanSuite with ShouldMatchers {
 
     //The case statements are called case statements with guards
     val doubleEvens: PartialFunction[Int, Int] = {
-      case x: Int if (x % 2) == 0 => x * 2
+      case x if (x % 2) == 0 => x * 2
     }
     val tripleOdds: PartialFunction[Int, Int] = {
       case x: Int if (x % 2) != 0 => x * 3
     }
 
     val whatToDo = doubleEvens orElse tripleOdds //Here we chain the partial functions together
-    whatToDo(3) should be(__)
-    whatToDo(4) should be(__)
+    whatToDo(3) should be(9)
+    whatToDo(4) should be(8)
   }
 
   koan( """The result of partial functions can have an \'andThen\' function added to the end
@@ -58,9 +58,10 @@ class AboutPartialFunctions extends KoanSuite with ShouldMatchers {
     }
 
     val addFive = (x: Int) => x + 5
+
     val whatToDo = doubleEvens orElse tripleOdds andThen addFive //Here we chain the partial functions together
-    whatToDo(3) should be(__)
-    whatToDo(4) should be(__)
+    whatToDo(3) should be(14)
+    whatToDo(4) should be(13)
   }
 
   koan( """The result of partial functions can have an \'andThen\' function added to the end
@@ -74,15 +75,15 @@ class AboutPartialFunctions extends KoanSuite with ShouldMatchers {
     }
 
     val printEven: PartialFunction[Int, String] = {
-      case x: Int if (x % 2) == 0 => "Even"
+      case x: Int if (x % 2) == 0 => s"Even - Total = $x"
     }
     val printOdd: PartialFunction[Int, String] = {
-      case x: Int if (x % 2) != 0 => "Odd"
+      case x: Int if (x % 2) != 0 => s"Odd - Total = $x"
     }
 
-    val whatToDo = doubleEvens orElse tripleOdds andThen (printEven orElse printOdd)
+    val whatToDo = doubleEvens orElse tripleOdds andThen (x => x + 5) andThen (printEven orElse printOdd)
 
-    whatToDo(3) should be(__)
-    whatToDo(4) should be(__)
+    whatToDo(3) should be("Even - Total = 14")
+    whatToDo(4) should be("Odd - Total = 13")
   }
 }
