@@ -81,7 +81,7 @@ class AboutPartialFunctions extends KoanSuite with ShouldMatchers {
       case x: Int if (x % 2) != 0 => s"Odd - Total = $x"
     }
 
-    val whatToDo = doubleEvens orElse tripleOdds andThen (x => x + 5) andThen (printEven orElse printOdd)
+    val whatToDo = doubleEvens orElse tripleOdds andThen ((x: Int) => x + 5) andThen (printEven orElse printOdd)
 
     whatToDo(3) should be("Even - Total = 14")
     whatToDo(4) should be("Odd - Total = 13")
