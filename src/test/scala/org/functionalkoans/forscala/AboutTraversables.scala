@@ -14,36 +14,40 @@ class AboutTraversables extends KoanSuite with ShouldMatchers {
 
     val set = Set(1, 9, 10, 22)
     val list = List(3, 4, 5, 10)
-    val result = set ++ list
-    result.size should be(__)
+    val result: Set[Int] = set ++ list
+    result.size should be(7)
 
-    val result2 = list ++ set
-    result2.size should be(__)
+    val result2: List[Int] = list ++ set
+    result2.size should be(8)
   }
 
   koan( """map will apply the given function on all elements of a
           |  Traversable and return a new collection of the result.""") {
     val set = Set(1, 3, 4, 6)
-    val result = set.map(_ * 4)
-    result.last should be(__)
+    val result: Set[Int] = set.map(_ * 4)
+    result should be(Set(4, 12, 16, 24))
+//    result.last should be(24) ??? non-deterministic unless if the collection is ordered
+
+    val result2 = set.map(_ * 4).toList
+    result2.last should be(24)
   }
 
   koan( """flatten will smash all child Traversables within a Traversable""") {
     val list = List(List(1), List(2, 3, 4), List(5, 6, 7), List(8, 9, 10))
-    list.flatten should be(List(__, __, __, __, __, __, __, __, __, __))
+    list.flatten should be(List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
   }
 
   koan( """flatMap will not only apply the given function on all elements of a Traversable,
           |  but all elements within the elements and flatten the results""") {
     val list = List(List(1), List(2, 3, 4), List(5, 6, 7), List(8, 9, 10))
     val result = list.flatMap(_.map(_ * 4))
-    result should be(List(__, __, __, __, __, __, __, __, __, __))
+    result should be(List(4, 8, 12, 16, 20, 24, 28, 32, 36, 40))
   }
 
   koan( """flatMap of Options will filter out all Nones and Keep the Somes""") {
     val list = List(1, 2, 3, 4, 5)
     val result = list.flatMap(it => if (it % 2 == 0) Some(it) else None)
-    result should be(List(__, __))
+    result should be(List(2, 4))
   }
 
   koan( """collect will apply a partial function to all elements of a Traversable
@@ -52,7 +56,7 @@ class AboutTraversables extends KoanSuite with ShouldMatchers {
     val result = list.collect {
       case x: Int if (x % 2 == 0) => x * 3
     }
-    result should be(List(__, __, __, __))
+    result should be(List(12, 18, 24, 42))
   }
 
   koan( """collect will apply a partial function to all elements of a Traversable
@@ -66,7 +70,7 @@ class AboutTraversables extends KoanSuite with ShouldMatchers {
       case y: Int if y % 2 != 0 => y * 4
     }
     val result = list.collect(partialFunction1 orElse partialFunction2)
-    result should be(List(__, __, __, __, __, __, __))
+    result should be(List(12, 18, 28, 24, 36, 52, 42))
   }
 
   koan( """foreach will apply a function to all elements of a Traversable, but unlike
