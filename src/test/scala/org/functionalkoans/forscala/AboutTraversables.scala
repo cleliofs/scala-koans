@@ -552,17 +552,18 @@ class AboutTraversables extends KoanSuite with ShouldMatchers {
     lst.view.map { x => addHistory("Doubling %s".format(x)); x * 2}.map {
                    x => addHistory("Adding 1 to %s".format(x)); x + 1}.force
 
-    history(0) should be(__)
-    history(1) should be(__)
-    history(2) should be(__)
-    history(3) should be(__)
-    history(4) should be(__)
-    history(5) should be(__)
+    history(0) should be("Doubling 1")
+    history(1) should be("Adding 1 to 2")
+    history(2) should be("Doubling 2")
+    history(3) should be("Adding 1 to 4")
+    history(4) should be("Doubling 3")
+    history(5) should be("Adding 1 to 6")
   }
 
   koan( """Views can also accept a `to` and `from` value which takes a subset and performs your view
           |  functions on the subset.""") {
     val list = List(1, 2, 3, 4, 5, 6, 7, 8)
-    list.view(3, 6).map(_ + 2).map(_ * 10).force should be(List(__, __, __))
+    list.view(3, 6).map(_ + 2).map(_ * 10).force should be(List(60, 70, 80))
+    list.slice(3, 6).map(e => (e + 2) * 10) should be(List(60, 70, 80))
   }
 }
