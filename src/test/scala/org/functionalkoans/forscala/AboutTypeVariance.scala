@@ -31,7 +31,7 @@ class AboutTypeVariance extends KoanSuite with ShouldMatchers {
     }
 
     val fruitBasket = new MyContainer(new Orange())
-    fruitBasket.contents should be(__)
+    fruitBasket.contents should be("Orange")
   }
 
 
@@ -49,7 +49,7 @@ class AboutTypeVariance extends KoanSuite with ShouldMatchers {
     }
 
     val fruitBasket = new MyContainer[Fruit](new Orange())
-    fruitBasket.contents should be(__)
+    fruitBasket.contents should be("Fruit")
   }
 
   koan("You can coerece your object to a type.") {
@@ -66,7 +66,7 @@ class AboutTypeVariance extends KoanSuite with ShouldMatchers {
     }
 
     val fruitBasket: MyContainer[Fruit] = new MyContainer(new Orange())
-    fruitBasket.contents should be(__)
+    fruitBasket.contents should be("Fruit")
   }
 
 // That one probably blew your mind. Now if you assign a type to the instantiation,
@@ -88,7 +88,7 @@ class AboutTypeVariance extends KoanSuite with ShouldMatchers {
     }
 
     // Uncomment the following line
-    // val fruitBasket:MyContainer[Fruit] = new MyContainer[Orange](new Orange())
+//     val fruitBasket:MyContainer[Fruit] = new MyContainer[Orange](new Orange())
   }
 
 // So, if you want to set a Fruit basket to an orange basket so how do we fix that? You make it covariant using +.
@@ -105,7 +105,7 @@ class AboutTypeVariance extends KoanSuite with ShouldMatchers {
     }
 
     val fruitBasket: MyContainer[Fruit] = new MyContainer[Orange](new Orange())
-    fruitBasket.contents should be(__)
+    fruitBasket.contents should be("Orange")
   }
 
 // The problem with covariance is that you can't mutate, set, or change the object since
@@ -123,7 +123,7 @@ class AboutTypeVariance extends KoanSuite with ShouldMatchers {
     }
 
     val fruitBasket: MyContainer[Fruit] = new MyContainer[Orange](new Orange())
-    fruitBasket.contents should be(__)
+    fruitBasket.contents should be("Orange")
 
     class NavelOrange extends Orange //Creating a subtype to prove a point
     //    val navelOrangeBasket: MyContainer[NavelOrange] = new MyContainer[Orange](new Orange()) //Bad!
