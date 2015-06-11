@@ -148,14 +148,14 @@ class AboutTypeVariance extends KoanSuite with ShouldMatchers {
     }
 
     val citrusBasket: MyContainer[Citrus] = new MyContainer[Citrus](new Orange)
-    citrusBasket.contents should be(__)
+    citrusBasket.contents should be("Citrus")
     val orangeBasket: MyContainer[Orange] = new MyContainer[Citrus](new Tangelo)
-    orangeBasket.contents should be(__)
+    orangeBasket.contents should be("Citrus")
     val tangeloBasket: MyContainer[Tangelo] = new MyContainer[Citrus](new Orange)
-    tangeloBasket.contents should be(__)
+    tangeloBasket.contents should be("Citrus")
 
     val orangeBasketReally: MyContainer[Orange] = tangeloBasket.asInstanceOf[MyContainer[Orange]]
-    orangeBasketReally.contents should be(__)
+    orangeBasketReally.contents should be("Citrus")
     orangeBasketReally.set(new Orange())
   }
 
@@ -177,11 +177,11 @@ class AboutTypeVariance extends KoanSuite with ShouldMatchers {
     }
 
     val citrusBasket: MyContainer[Citrus] = new MyContainer[Citrus](new Orange)
-    citrusBasket.contents should be(__)
+    citrusBasket.contents should be("Citrus")
     val orangeBasket: MyContainer[Orange] = new MyContainer[Citrus](new Tangelo)
-    orangeBasket.contents should be(__)
+    orangeBasket.contents should be("Citrus")
     val tangeloBasket: MyContainer[Tangelo] = new MyContainer[Citrus](new Orange)
-    tangeloBasket.contents should be(__)
+    tangeloBasket.contents should be("Citrus")
   }
 
 // Declaring neither -/+, indicates invariance variance.  You cannot use a superclass
@@ -204,7 +204,7 @@ class AboutTypeVariance extends KoanSuite with ShouldMatchers {
     }
 
     val citrusBasket: MyContainer[Citrus] = new MyContainer[Citrus](new Orange)
-    citrusBasket.contents should be(__)
+    citrusBasket.contents should be("Citrus")
   }
 
 
@@ -225,9 +225,9 @@ class AboutTypeVariance extends KoanSuite with ShouldMatchers {
     val citrusBasket: MyContainer[Citrus] = new MyContainer[Citrus](new Orange)
 
     citrusBasket.set(new Orange)
-    citrusBasket.contents should be(__)
+    citrusBasket.contents should be("Citrus")
 
     citrusBasket.set(new Tangelo)
-    citrusBasket.contents should be(__)
+    citrusBasket.contents should be("Citrus")
   }
 }
