@@ -35,8 +35,8 @@ class AboutAdvancedOptions extends KoanSuite {
         null
       }
     }
-    makeFullName("Nilanjan", "Raychaudhuri") should be(__)
-    makeFullName("Nilanjan", null) should be(__)
+    makeFullName("Nilanjan", "Raychaudhuri") should be("Nilanjan Raychaudhuri")
+    makeFullName("Nilanjan", null) should be(null)
 
     //the pretty version
     def makeFullNamePrettyVersion(firstName: Option[String], lastName: Option[String]) = {
@@ -48,8 +48,8 @@ class AboutAdvancedOptions extends KoanSuite {
           }
       }
     }
-    makeFullNamePrettyVersion(Some("Nilanjan"), Some("Raychaudhuri")) should be(__)
-    makeFullNamePrettyVersion(Some("Nilanjan"), None) should be(__)
+    makeFullNamePrettyVersion(Some("Nilanjan"), Some("Raychaudhuri")) should be(Some("Nilanjan Raychaudhuri"))
+    makeFullNamePrettyVersion(Some("Nilanjan"), None) should be(None)
   }
 
   koan("Using in for comprehension") {
@@ -58,6 +58,8 @@ class AboutAdvancedOptions extends KoanSuite {
       someValue <- values
       value <- someValue
     } yield value
-    newValues should be(List(__, __, __))
+    newValues should be(List(10, 20, 15))
+
+    values.flatten should be(List(10, 20, 15))
   }
 }
