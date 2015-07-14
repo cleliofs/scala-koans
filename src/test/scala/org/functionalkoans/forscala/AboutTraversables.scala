@@ -54,9 +54,12 @@ class AboutTraversables extends KoanSuite with ShouldMatchers {
           and will return a different collection. In this koan, a case fragment is a partial function.""") {
     val list = List(4, 6, 7, 8, 9, 13, 14)
     val result = list.collect {
-      case x: Int if (x % 2 == 0) => x * 3
+      case x: Int if x % 2 == 0 => x * 3
     }
     result should be(List(12, 18, 24, 42))
+
+    val result2 = list.filter(_ % 2==0).map(_*3)
+    result should be(result2)
   }
 
   koan( """collect will apply a partial function to all elements of a Traversable

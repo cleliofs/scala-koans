@@ -4,17 +4,22 @@ import org.functionalkoans.forscala.support.KoanSuite
 
 class AboutAdvancedOptions extends KoanSuite {
   koan("Option is more than just a replacement of null, its also a collection") {
-    Some(10) map { _ + 10} should be(__)
-    Some(10) filter { _ == 10} should be(__)
-    Some(Some(10)) flatMap { _ map { _ + 10}} should be(__)
+    Some(10) map { _ + 10} should be(Some(20))
+    Some(10) filter { _ == 10} should be(Some(10))
+    Some(Some(10)) flatMap { _ map { _ + 10}} should be(Some(20))
+    val res = for {
+      e1 <- Some(Some(10))
+      e2 <- e1
+    } yield e2 + 10
+    res should be(Some(20))
 
     var newValue1 = 0
     Some(20) foreach { newValue1 = _}
-    newValue1 should be(__)
+    newValue1 should be(20)
 
     var newValue2 = 0
     None foreach { newValue2 = _}
-    newValue2 should be(__)
+    newValue2 should be(0)
   }
 
   koan("Using Option to avoid if checks for null") {
